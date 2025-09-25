@@ -22,7 +22,7 @@ function App() {
       prevComponents.map(comp =>
         comp.id === componentId
           ? { ...comp, highlighted: !comp.highlighted }
-          : { ...comp, highlighted: false } // Only one component can be highlighted at a time
+          : { ...comp, highlighted: false } 
       )
     );
   };

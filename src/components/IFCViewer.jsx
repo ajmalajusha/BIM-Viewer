@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { IFCLoader } from 'web-ifc-three/IFCLoader';
 import { ErrorBoundary } from 'react-error-boundary';
 
-// Error Boundary Fallback Component
+
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div className="p-4 bg-red-50 text-red-900 rounded-lg shadow-lg max-w-md mx-auto mt-4 border border-red-200">
@@ -25,7 +25,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
   );
 }
 
-// Fallback IFC type mapping for common types
+
 const IFC_TYPES_MAP = {
   0: 'Unknown',
   1: 'IFCWALL',
@@ -34,7 +34,7 @@ const IFC_TYPES_MAP = {
   4: 'IFCBEAM',
   5: 'IFCDOOR',
   6: 'IFCWINDOW',
-  // Add more mappings as needed based on your IFC files
+  
 };
 
 const loadIFCFile = async (file, onProgress) => {
@@ -46,7 +46,7 @@ const loadIFCFile = async (file, onProgress) => {
       console.log('Initializing IFC loader...');
       ifcLoader = new IFCLoader();
 
-      // Set WASM path with error handling
+     
       try {
         await ifcLoader.ifcManager.setWasmPath('/wasm/');
         console.log('WASM path set to /wasm/');
@@ -138,7 +138,7 @@ const loadIFCFile = async (file, onProgress) => {
             mesh: subset,
             visible: true,
             highlighted: false,
-            initialPosition: subset.position.clone() // Store initial position
+            initialPosition: subset.position.clone() 
           });
 
           processedCount++;
@@ -395,12 +395,12 @@ export default function IFCViewer({
 
   const isDevelopment = process.env.NODE_ENV === 'development';
 
-  // Sync prop with local state
+ 
   useEffect(() => {
     setIsSplitModeLocal(isSplitMode);
   }, [isSplitMode]);
 
-  // Compute centroids and initial positions for explode
+  
   useEffect(() => {
     if (components.length > 0 && originalCentroids.length === 0) {
       const modelBox = new THREE.Box3();
@@ -425,8 +425,8 @@ export default function IFCViewer({
         }
         const center = new THREE.Vector3();
         mesh.geometry.boundingBox.getCenter(center);
-        mesh.updateMatrixWorld(); // Ensure world matrix is up-to-date
-        center.applyMatrix4(mesh.matrixWorld); // Get world-space centroid
+        mesh.updateMatrixWorld(); 
+        center.applyMatrix4(mesh.matrixWorld); 
         console.log(`Component ${c.id} centroid:`, center);
         return center;
       });
@@ -437,7 +437,7 @@ export default function IFCViewer({
     }
   }, [components]);
 
-  // Explode effect
+
   useEffect(() => {
     if (!components || components.length === 0 || originalCentroids.length === 0) {
       console.log('Explode skipped: No components or centroids');
@@ -464,13 +464,13 @@ export default function IFCViewer({
         return;
       }
 
-      // Reset to initial position
+
       mesh.position.copy(component.initialPosition);
 
       if (explodeAmount > 0) {
         const centroid = originalCentroids[i];
         const direction = new THREE.Vector3().subVectors(centroid, modelCenter).normalize();
-        // Scale explosion by model size and explodeAmount (0 to 2)
+    
         const offset = direction.multiplyScalar(explodeAmount * modelSize * 0.5);
         mesh.position.add(offset);
         console.log(`Component ${component.id} exploded: offset=${offset}, new position=${mesh.position}`);
@@ -478,7 +478,7 @@ export default function IFCViewer({
     });
   }, [explodeAmount, components, originalCentroids]);
 
-  // Wireframe toggle
+
   useEffect(() => {
     components.forEach((component) => {
       const mesh = component.mesh;
@@ -494,7 +494,7 @@ export default function IFCViewer({
     });
   }, [localWireframeEnabled, components]);
 
-  // Load properties for selected component
+
   useEffect(() => {
     const loadProperties = async () => {
       if (ifcManager && modelID && selectedId) {
@@ -521,7 +521,7 @@ export default function IFCViewer({
       return;
     }
 
-    const maxSize = 100 * 1024 * 1024; // 100MB
+    const maxSize = 100 * 1024 * 1024; 
     if (file.size > maxSize) {
       setError({ title: 'File Too Large', message: 'File size exceeds 100MB limit.' });
       return;

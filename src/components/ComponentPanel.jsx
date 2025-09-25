@@ -5,14 +5,14 @@ export default function ComponentPanel({ components, onComponentToggle, onCompon
   const [selectedType, setSelectedType] = useState('all');
   const [showOnlyVisible, setShowOnlyVisible] = useState(false);
 
-  // Get unique component types - moved before conditional return
+ 
   const componentTypes = useMemo(() => {
     if (!components || components.length === 0) return [];
     const types = [...new Set(components.map(comp => comp.type))];
     return types.sort();
   }, [components]);
 
-  // Filter components based on search, type, and visibility - moved before conditional return
+ 
   const filteredComponents = useMemo(() => {
     if (!components || components.length === 0) return [];
     return components.filter(component => {
@@ -25,7 +25,7 @@ export default function ComponentPanel({ components, onComponentToggle, onCompon
     });
   }, [components, searchTerm, selectedType, showOnlyVisible]);
 
-  // Calculate statistics - moved before conditional return
+
   const stats = useMemo(() => {
     if (!components || components.length === 0) {
       return { total: 0, visible: 0, hidden: 0, highlighted: 0 };
@@ -58,8 +58,7 @@ export default function ComponentPanel({ components, onComponentToggle, onCompon
   };
 
   const handleToggleAll = (visible) => {
-    // This would need to be implemented in the parent component
-    // For now, we'll just toggle all filtered components
+   
     filteredComponents.forEach(component => {
       if (component.visible !== visible) {
         onComponentToggle(component.id);
