@@ -15,5 +15,8 @@ export default defineConfig({
     mimeTypes: {
       'application/wasm': ['.wasm']
     }
+  },
+   build: {
+    chunkSizeWarningLimit: 2000 
   }
 })
