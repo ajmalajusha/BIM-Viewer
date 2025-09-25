@@ -4,7 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/BIM-Viewer/',
   plugins: [react(),tailwindcss()],
   resolve: {
     alias: {
@@ -15,8 +14,5 @@ export default defineConfig({
     mimeTypes: {
       'application/wasm': ['.wasm']
     }
-  },
-   build: {
-    chunkSizeWarningLimit: 2000 
   }
 })
